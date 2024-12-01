@@ -1,4 +1,3 @@
-import DashBoardIcon from "@/components/icons/DashBoardIcon";
 import Logo from "@/components/icons/Logo";
 import { Link } from "react-router-dom";
 import { useLocation } from "react-router-dom";
@@ -15,7 +14,8 @@ import DatabaseIcon from "@/components/icons/DatabaseIcon";
 import SuggestQuestionIcon from "@/components/icons/SuggestQuestionIcon";
 import LogoutIcon from "@/components/icons/LogoutIcon";
 import AccordionLink from "./AccordionLink";
-import WorkSpace from "./WorkSpace";
+import DashBoardIcon from "@/components/icons/DashboardIcon";
+import WorkSpace from "./Workspace";
 
 const DefaultMenu = () => {
   const location = useLocation();
@@ -41,7 +41,7 @@ const DefaultMenu = () => {
         <Accordion type="single" collapsible className="mt-10 w-full">
           <AccordionItem value="item-1" className="border-b-0">
             <AccordionTrigger className="hover:no-underline">
-              <div className="flex items-center justify-start gap-2 text-xs text-white">
+              <div className="flex items-center justify-start gap-2 pl-2 text-xs text-white">
                 <ConversationsIcon width={24} height={24} />
                 <span>گفتگوها</span>
               </div>
@@ -49,19 +49,19 @@ const DefaultMenu = () => {
             <AccordionContent>
               <div className="flex flex-col items-start justify-center gap-5 pr-6 pt-6 text-xs">
                 <AccordionLink
-                  link="new-chat"
+                  link="/new-chat"
                   text="گفتگوی جدید"
-                  path={currentPath}
+                  machedPath="new-chat"
                 />
                 <AccordionLink
-                  link="users-conversations"
+                  link="/users-conversations"
                   text="گفتگوی کاربران"
-                  path={currentPath}
+                  machedPath="users-conversations"
                 />
                 <AccordionLink
-                  link="users-questions"
+                  link="/users-questions"
                   text="سوالات کاربران"
-                  path={currentPath}
+                  machedPath="users-questions"
                 />
               </div>
             </AccordionContent>
