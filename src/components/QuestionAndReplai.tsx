@@ -14,9 +14,9 @@ const QuestionAndReplai = ({ question, replai }: Props) => {
         <UserIcon width={36} height={36} className="text-[#FFCC00]" />
         <span>{question}</span>
       </div>
-      <div className="flex items-start gap-6 px-6 pb-3 pt-6">
-        <BotIcon width={36} height={36} />
-        <div className="flex w-fit flex-col items-end justify-end">
+      <div className="flex w-full items-start gap-6 px-6 pb-3 pt-6">
+        <BotIcon width={36} height={36} className="flex-shrink-0" />
+        <div className="flex w-full flex-col items-end justify-end">
           <p>{replai}</p>
           <EditTextIcon
             width={24}

@@ -1,11 +1,11 @@
 import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
-import * as ScrollArea from "@radix-ui/react-scroll-area";
 
 import { ChatsProps } from "@/shared/types";
 import NewChatInput from "./NewChatInput";
 import NewChatSamples from "./NewChatSamples";
 import QuestionAndReplai from "./QuestionAndReplai";
+import ScrollContent from "./ScrollContent";
 
 const NewChatBox = () => {
   const [questions, setQuestions] = useState<ChatsProps[]>([]);
@@ -42,26 +42,18 @@ const NewChatBox = () => {
         </div>
       ) : (
         <div className="relative flex h-full w-full flex-col items-center justify-start pt-[80px]">
-          <ScrollArea.Root className="h-full w-full">
-            <ScrollArea.Viewport>
-              <div
-                className="flex max-h-[calc(100vh-270px)] w-full flex-col items-center gap-4 px-2"
-                dir="rtl"
-              >
-                {questions.map((q, index) => (
-                  <QuestionAndReplai
-                    key={`${q}-${index}`}
-                    question={q.question}
-                    replai={q.replai}
-                  />
-                ))}
-                <div ref={endRef} className="w-full" />
-              </div>
-            </ScrollArea.Viewport>
-            <ScrollArea.Scrollbar orientation="vertical">
-              <ScrollArea.Thumb />
-            </ScrollArea.Scrollbar>
-          </ScrollArea.Root>
+          <ScrollContent color="transparent">
+            <div className="flex max-h-[calc(100vh-270px)] w-full flex-col items-center gap-4 px-2">
+              {questions.map((q, index) => (
+                <QuestionAndReplai
+                  key={`${q}-${index}`}
+                  question={q.question}
+                  replai={q.replai}
+                />
+              ))}
+              <div ref={endRef} className="w-full" />
+            </div>
+          </ScrollContent>
           <div className="w-full px-2">
             <div className="bg-mainColor absolute bottom-0 flex h-[190px] w-full items-center">
               <NewChatInput

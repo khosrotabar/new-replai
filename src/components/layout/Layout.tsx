@@ -1,20 +1,49 @@
+import { useEffect } from "react";
+import { useQuery } from "@tanstack/react-query";
+import { useDispatch } from "react-redux";
+
+import { getWorkspaces } from "@/services/api/workspaces";
+import { setWorkspaces } from "@/services/states/workspaces";
 import DefaultMenu from "./menus/DefaultMenu";
+import SecondMenu from "./menus/SecondMenu";
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
-  // useQuery to get workspaces
+  const dispatch = useDispatch();
+  const { data, isLoading } = useQuery({
+    queryKey: ["workspaces"],
+    queryFn: () => getWorkspaces(),
+    retry: false,
+  });
 
-  // store workspaces in redux
+  useEffect(() => {
+    if (data && !isLoading) {
+      const localWorkspace = localStorage.getItem("workspace");
+      let currentWorkspace;
 
-  // store first workspace in current-workspace state if localstorage (current-workspace) is not ready
+      if (localWorkspace) {
+        currentWorkspace = JSON.parse(localWorkspace);
+      } else {
+        currentWorkspace = data[0];
+        localStorage.setItem("workspace", JSON.stringify(data[0]));
+      }
 
-  // if localstorage (current-workspace) is ready, store it in current-workspace state
+      dispatch(
+        setWorkspaces({
+          workspaces: data,
+          loading: false,
+          currentWorkspace: currentWorkspace,
+        }),
+      );
+    }
+  }, [data, isLoading]);
 
-  // handle loading states in redux
+  // TODO: handle error
 
   return (
     <div className="font-yekan-bakh h-screen w-full" dir="rtl">
       <DefaultMenu />
-      <main className="bg-mainColor h-full w-full pr-[214px]">{children}</main>
+      <SecondMenu />
+      <main className="bg-mainColor h-full w-full pr-[490px]">{children}</main>
     </div>
   );
 };
