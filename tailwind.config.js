@@ -14,6 +14,7 @@ export default {
         mainColor: "#151515",
         secondColor: "#1A1A1A",
         borderColor: "#2A2A2A",
+        errorColor: "#FF4845",
       },
       fontFamily: {
         "yekan-bakh": ["Yekan-Bakh"],

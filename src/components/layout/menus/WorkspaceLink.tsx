@@ -1,7 +1,7 @@
 import { useDispatch } from "react-redux";
 
 import { WorkspaceProps } from "@/shared/types";
-import { stringToHexColor } from "@/utils/StringToColor";
+import { stringToHexColor } from "@/utils/stringToColor";
 import ThickIcon from "@/components/icons/ThickIcon";
 import { setCurrentWorkspace } from "@/services/states/workspaces";
 

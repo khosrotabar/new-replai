@@ -3,9 +3,12 @@ export type IconProps = React.SVGAttributes<Element> & {
   height: number;
 };
 
-export type ChatsProps = {
-  question: string;
-  replai: string;
+export type ReplayProps = {
+  question?: string;
+  chat_id?: number | null;
+  reply: string;
+  message_id: number | null;
+  suggestions: string[];
 };
 
 export type WorkspaceProps = {
@@ -22,7 +25,7 @@ export type WorkspaceChat = {
   date: string;
   chats: [
     {
-      id: number;
+      id: number | null;
       title: string;
     },
   ];

@@ -2,13 +2,14 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
+import { Skeleton } from "@/components/ui/skeleton";
 
 import { getWorkspaceChats } from "@/services/api/workspaces";
 import { RootState } from "@/services/states/store";
 import { setWorkspaceChats } from "@/services/states/workspace-chats";
 import ChatIcon from "@/components/icons/ChatIcon";
 import ScrollContent from "@/components/ScrollContent";
-import { Skeleton } from "@/components/ui/skeleton";
+import { convertDateToJalali } from "@/utils/convertDateToJalali";
 
 const WorkspaceChatLink = ({ text, href }: { text: string; href: string }) => {
   return (
@@ -17,7 +18,7 @@ const WorkspaceChatLink = ({ text, href }: { text: string; href: string }) => {
       className="flex w-full cursor-pointer items-center justify-start gap-2 rounded-[8px] border-[1px] border-[transparent] px-2 py-2 hover:border-[1px] hover:border-[#404040] hover:bg-[#282828]"
     >
       <ChatIcon width={24} height={24} className="flex-shrink-0" />
-      <span className="max-w-[140px] truncate whitespace-nowrap text-sm font-normal">
+      <span className="max-w-[150px] truncate whitespace-nowrap text-sm font-normal">
         {text}
       </span>
     </Link>
@@ -29,7 +30,7 @@ const WorkspaceChats = () => {
   const { id } = useSelector(
     (state: RootState) => state.workspaces.currentWorkspace,
   );
-  const workspaceChats = useSelector(
+  const { workspaceChats } = useSelector(
     (state: RootState) => state.workspaceChats,
   );
   const workspacesLoading = useSelector(
@@ -42,10 +43,15 @@ const WorkspaceChats = () => {
   });
 
   useEffect(() => {
-    if (data) {
-      dispatch(setWorkspaceChats(data));
+    if (data && !isLoading) {
+      dispatch(
+        setWorkspaceChats({
+          workspaceChats: data,
+          loading: false,
+        }),
+      );
     }
-  }, [data]);
+  }, [data, isLoading]);
 
   // TODO: handle error
 
@@ -73,7 +79,7 @@ const WorkspaceChats = () => {
         {workspaceChats.map((item) => (
           <div key={item.date} className="flex w-full flex-col gap-2">
             <span className="pr-[11px] text-xs font-light text-[#A4A4A4]">
-              {item.date}
+              {convertDateToJalali(item.date)}
             </span>
             <div className="flex w-full flex-col items-start gap-2">
               {item.chats.map((chat, index) => (

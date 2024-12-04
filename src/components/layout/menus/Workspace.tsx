@@ -8,7 +8,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 
 import LeftChavron from "@/components/icons/LeftChavron";
 import WorkspaceLink from "./WorkspaceLink";
-import { stringToHexColor } from "@/utils/StringToColor";
+import { stringToHexColor } from "@/utils/stringToColor";
 import { RootState } from "@/services/states/store";
 import ScrollContent from "@/components/ScrollContent";
 
@@ -49,7 +49,7 @@ const WorkSpace = () => {
           </div>
         </DropdownMenuTrigger>
         <DropdownMenuContent
-          className="border-borderColor custom-shadow -mt-7 mr-1 h-[216px] w-[180px] rounded-[16px] border-[1px] bg-[#1E1E1E] py-6 pl-2 pr-2"
+          className="custom-shadow -mt-7 mr-1 h-[216px] w-[180px] rounded-[16px] border-[1px] border-borderColor bg-[#1E1E1E] py-6 pl-2 pr-2"
           side="left"
         >
           <ScrollContent color="#888">

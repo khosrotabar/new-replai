@@ -1,5 +1,4 @@
 import { Button } from "@/components/ui/button";
-import { useNavigate } from "react-router-dom";
 
 import ChatIcon from "@/components/icons/ChatIcon";
 import PlusIcon from "@/components/icons/PlusIcon";
@@ -16,18 +15,16 @@ const SampleChatLink = ({ text }: { text: string }) => {
 };
 
 const SecondMenu = () => {
-  const navigate = useNavigate();
-
   const handleRedirect = () => {
-    navigate("/new-chat", { replace: true });
+    window.location.href = "/new-chat";
   };
 
   return (
     <div className="fixed right-[214px] top-0 z-50 h-full w-[276px] py-6 pr-6">
-      <div className="bg-secondColor border-borderColor relative flex h-full w-full flex-col items-start justify-start rounded-[16px] border-[1px] p-2 text-white">
+      <div className="relative flex h-full w-full flex-col items-start justify-start rounded-[16px] border-[1px] border-borderColor bg-secondColor p-2 text-white">
         <Button
           onClick={handleRedirect}
-          className="border-borderColor flex h-10 w-full items-center justify-start gap-3 rounded-[8px] border-[1px] bg-[#1E1E1E] px-3"
+          className="flex h-10 w-full items-center justify-start gap-3 rounded-[8px] border-[1px] border-borderColor bg-[#1E1E1E] px-3"
         >
           <PlusIcon width={18} height={18} />
           <span className="mt-1 text-xs">گفتگوی جدید</span>
