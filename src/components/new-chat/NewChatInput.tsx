@@ -1,10 +1,10 @@
 import { useState } from "react";
-import { Input } from "./ui/input";
+import { Input } from "../ui/input";
 import { useSelector } from "react-redux";
 import clsx from "clsx";
 
 import { RootState } from "@/services/states/store";
-import SendIcon from "./icons/SendIcon";
+import SendIcon from "../icons/SendIcon";
 
 type Props = {
   handleNewChat?: (value: string) => void;

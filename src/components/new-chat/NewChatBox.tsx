@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { motion } from "framer-motion";
 
@@ -6,6 +6,11 @@ import { ReplayProps } from "@/shared/types";
 import { updateWorkspaceChats } from "@/services/states/workspace-chats";
 import { postNewChat } from "@/services/api/new-chat";
 import { RootState } from "@/services/states/store";
+import {
+  setMessageError,
+  setMessageLoading,
+  setMessages,
+} from "@/services/states/messages";
 import NewChatInput from "./NewChatInput";
 import NewChatSamples from "./NewChatSamples";
 import NewChats from "./NewChats";
@@ -15,30 +20,30 @@ const NewChatBox = () => {
   const currentWorkspaceId = useSelector(
     (state: RootState) => state.workspaces.currentWorkspace.id,
   );
-  const [messages, setMessages] = useState<ReplayProps[]>([]);
-  const [replayLoading, setReplayLoading] = useState<boolean>(false);
-  const [replayError, setReplayError] = useState<boolean>(false);
+  const { messages } = useSelector((state: RootState) => state.messages);
 
   useEffect(() => {
-    setMessages([]);
+    dispatch(setMessages([]));
   }, [currentWorkspaceId]);
 
   const handleNewChat = async (value: string) => {
-    setReplayLoading(true);
+    dispatch(setMessageLoading(true));
+
     const newMessages = [
       ...messages,
       {
         question: value,
         chat_id: null,
         message_id: null,
-        reply: "",
+        reply: " ",
         suggestions: [],
       },
     ];
+    dispatch(setMessages(newMessages));
 
-    setMessages(newMessages);
+    const response = await postNewChat(currentWorkspaceId, value);
 
-    if (!messages.length) {
+    if (response) {
       dispatch(
         updateWorkspaceChats({
           date: new Date().toISOString().split("T")[0],
@@ -50,38 +55,20 @@ const NewChatBox = () => {
           ],
         }),
       );
-    }
 
-    const response = await postNewChat(currentWorkspaceId, value);
-
-    if (response) {
       const lastMessage = newMessages[newMessages.length - 1];
       const updatedMessage = {
         question: lastMessage.question,
         ...response,
       } as ReplayProps;
-      newMessages[newMessages.length - 1] = updatedMessage;
+      dispatch(setMessages([...newMessages.slice(0, -1), updatedMessage]));
 
-      setMessages(newMessages);
-
-      if (response.reply === "") setReplayError(true);
+      if (response.reply === "") dispatch(setMessageError(true));
     } else {
-      setReplayError(true);
+      dispatch(setMessageError(true));
     }
 
-    setReplayLoading(false);
-  };
-
-  const handleMessages = (value: ReplayProps[]) => {
-    setMessages(value);
-  };
-
-  const handleLoading = (value: boolean) => {
-    setReplayLoading(value);
-  };
-
-  const handleError = (value: boolean) => {
-    setReplayError(value);
+    dispatch(setMessageLoading(false));
   };
 
   return (
@@ -102,14 +89,7 @@ const NewChatBox = () => {
           <NewChatSamples handleQuestions={handleNewChat} />
         </div>
       ) : (
-        <NewChats
-          messages={messages}
-          replayLoading={replayLoading}
-          replayError={replayError}
-          handleLoading={handleLoading}
-          handleError={handleError}
-          handleMessages={handleMessages}
-        />
+        <NewChats messages={messages} />
       )}
     </motion.div>
   );

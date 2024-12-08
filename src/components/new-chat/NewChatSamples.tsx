@@ -1,6 +1,6 @@
 import { RootState } from "@/services/states/store";
 import { useSelector } from "react-redux";
-import { Skeleton } from "./ui/skeleton";
+import { Skeleton } from "../ui/skeleton";
 
 type Props = {
   handleQuestions: (value: string) => void;

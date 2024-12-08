@@ -1,32 +1,12 @@
-import { Fragment, useEffect, useState } from "react";
+import { Fragment } from "react";
 import { ImageWithFallback } from "./ImageWithFallback";
 
 type Props = {
   text: string;
-  handleTypingMode: (value: boolean) => void;
 };
 
-const TypingEffect = ({ text, handleTypingMode }: Props) => {
-  const [displayedText, setDisplayedText] = useState("");
-  const [index, setIndex] = useState(0);
-
-  useEffect(() => {
-    if (index >= text.length) {
-      handleTypingMode(false);
-    }
-  }, [index]);
-
-  useEffect(() => {
-    if (index < text.length) {
-      const timeout = setTimeout(() => {
-        setDisplayedText((prev) => prev + text[index]);
-        setIndex((prev) => prev + 1);
-      }, 20); // Adjust typing speed here
-      return () => clearTimeout(timeout);
-    }
-  }, [index, text]);
-
-  const lines = displayedText.split("\n");
+const EditedReply = ({ text }: Props) => {
+  const lines = text.split("\n");
 
   const urlRegex =
     /\b(?:https?:\/\/)?(?:www\.)?[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}(\/[^\s]*)?\/?\b/gi;
@@ -126,4 +106,4 @@ const TypingEffect = ({ text, handleTypingMode }: Props) => {
   );
 };
 
-export default TypingEffect;
+export default EditedReply;

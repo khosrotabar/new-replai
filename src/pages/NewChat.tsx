@@ -1,8 +1,8 @@
 import { useState } from "react";
 
-import Layout from "@/components/layout/Layout";
+import ChatsLayout from "@/components/layout/ChatsLayout";
 import Welcome from "@/components/Welcome";
-import NewChatBox from "@/components/NewChatBox";
+import NewChatBox from "@/components/new-chat/NewChatBox";
 
 const NewChat = () => {
   const [showWelcome, setShowWelcom] = useState(true);
@@ -13,7 +13,7 @@ const NewChat = () => {
   };
 
   return (
-    <Layout>
+    <ChatsLayout>
       <div className="flex h-full w-full items-center justify-center">
         {!firstVisit && showWelcome ? (
           <Welcome handleWelcome={handleWelcome} />
@@ -21,7 +21,7 @@ const NewChat = () => {
           <NewChatBox />
         )}
       </div>
-    </Layout>
+    </ChatsLayout>
   );
 };
 

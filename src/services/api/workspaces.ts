@@ -1,5 +1,5 @@
 import { axios } from "@/lib/axios";
-import { WorkspaceChat, WorkspaceProps } from "@/shared/types";
+import { WorkspaceChatProps, WorkspaceProps } from "@/shared/types";
 
 export const getWorkspaces = async (): Promise<WorkspaceProps[]> => {
   const { data } = await axios.get("/api/workspaces/");
@@ -9,7 +9,7 @@ export const getWorkspaces = async (): Promise<WorkspaceProps[]> => {
 
 export const getWorkspaceChats = async (
   workspaceId: number,
-): Promise<WorkspaceChat[]> => {
+): Promise<WorkspaceChatProps[]> => {
   const { data } = await axios.get(`/api/workspaces/${workspaceId}/chats/`);
 
   return data;

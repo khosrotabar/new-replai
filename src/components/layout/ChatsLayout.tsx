@@ -5,9 +5,9 @@ import { useDispatch } from "react-redux";
 import { getWorkspaces } from "@/services/api/workspaces";
 import { setWorkspaces } from "@/services/states/workspaces";
 import DefaultMenu from "./menus/DefaultMenu";
-import SecondMenu from "./menus/SecondMenu";
+import AdminMenu from "./menus/AdminMenu";
 
-const Layout = ({ children }: { children: React.ReactNode }) => {
+const ChatsLayout = ({ children }: { children: React.ReactNode }) => {
   const dispatch = useDispatch();
   const { data, isLoading } = useQuery({
     queryKey: ["workspaces"],
@@ -40,12 +40,12 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
   // TODO: handle error
 
   return (
-    <div className="font-yekan-bakh h-screen w-full" dir="rtl">
+    <div className="h-screen w-full font-yekan-bakh" dir="rtl">
       <DefaultMenu />
-      <SecondMenu />
-      <main className="bg-mainColor h-full w-full pr-[490px]">{children}</main>
+      <AdminMenu />
+      <main className="h-full w-full bg-mainColor pr-[490px]">{children}</main>
     </div>
   );
 };
 
-export default Layout;
+export default ChatsLayout;

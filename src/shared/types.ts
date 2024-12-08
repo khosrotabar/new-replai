@@ -21,7 +21,7 @@ export type WorkspaceProps = {
   }[];
 };
 
-export type WorkspaceChat = {
+export type WorkspaceChatProps = {
   date: string;
   chats: [
     {
@@ -29,4 +29,13 @@ export type WorkspaceChat = {
       title: string;
     },
   ];
+};
+
+export type ChatMessageProps = {
+  audio: null;
+  content: string;
+  created: string;
+  id: number;
+  like: null;
+  message_answer?: string;
 };

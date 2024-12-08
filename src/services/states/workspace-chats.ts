@@ -1,12 +1,12 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { WorkspaceChat } from "@/shared/types";
+import { WorkspaceChatProps } from "@/shared/types";
 
-type WorkspaceChatProps = {
-  workspaceChats: WorkspaceChat[];
+type Props = {
+  workspaceChats: WorkspaceChatProps[];
   loading: boolean;
 };
 
-const initialState: WorkspaceChatProps = {
+const initialState: Props = {
   workspaceChats: [],
   loading: true,
 };
@@ -15,11 +15,14 @@ const workspaceChatsSlice = createSlice({
   name: "workspace-chats",
   initialState: initialState,
   reducers: {
-    setWorkspaceChats: (state, action: PayloadAction<WorkspaceChatProps>) => {
+    setWorkspaceChats: (state, action: PayloadAction<Props>) => {
       state = action.payload;
       return state;
     },
-    updateWorkspaceChats: (state, action: PayloadAction<WorkspaceChat>) => {
+    updateWorkspaceChats: (
+      state,
+      action: PayloadAction<WorkspaceChatProps>,
+    ) => {
       const incomingChat = action.payload;
       const chatExists = state.workspaceChats.some(
         (chat) => chat.date === incomingChat.date,
@@ -37,7 +40,7 @@ const workspaceChatsSlice = createSlice({
       if (!chatExists) {
         workspaceChats.unshift(incomingChat);
       }
-      state.workspaceChats = workspaceChats as WorkspaceChat[];
+      state.workspaceChats = workspaceChats as WorkspaceChatProps[];
     },
   },
 });

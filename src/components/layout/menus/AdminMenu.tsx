@@ -14,7 +14,7 @@ const SampleChatLink = ({ text }: { text: string }) => {
   );
 };
 
-const SecondMenu = () => {
+const AdminMenu = () => {
   const handleRedirect = () => {
     window.location.href = "/new-chat";
   };
@@ -54,4 +54,4 @@ const SecondMenu = () => {
   );
 };
 
-export default SecondMenu;
+export default AdminMenu;

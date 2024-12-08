@@ -3,6 +3,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 import NewChat from "./pages/NewChat";
 import DashBoard from "./pages/DashBoard";
+import Chat from "./pages/Chat";
 
 function App() {
   const router = createBrowserRouter([
@@ -13,6 +14,10 @@ function App() {
     {
       path: "/new-chat",
       element: <NewChat />,
+    },
+    {
+      path: "/chat/*",
+      element: <Chat />,
     },
   ]);
 
